@@ -1,9 +1,18 @@
-from flask import Flask
-app = Flask(__name__)
+from flask import Flask,jsonify,request,render_template
 
-@app.route('/')
-def hello_world():
-    return 'Hello, World!'
+
+
+information = {"result" : 0}
+app = Flask(__name__)
+@app.route("/",methods=["GET"])
+def start():
+	x = int(request.args["x"])
+	y = int(request.args["y"])
+	print(type(x))
+	information["result"] = x*y
+	print(request.args)
+
+	return jsonify(information)
 
 if __name__ == '__main__':
     app.run(debug=True, port=3000)
